@@ -6,7 +6,7 @@ Sure! Here's a **beautified and professional version** of your README content wi
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-🔗 **Live Website:** [https://rmsc-coeptech.netlify.app/](https://rmsc-coeptech.netlify.app/)
+🔗 **Live Website:** [https://rmsc-coeptech.netlify.app/]([https://rmsc-coeptech.netlify.app/](https://rmsc-club-coeptech.netlify.app/))
 
 ---
 

@@ -1,0 +1,37 @@
+.team-page {
+  padding: 2rem;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  min-height: 100vh;
+  transition: all var(--animation-duration);
+}
+
+.team-section {
+  margin-top: 2rem;
+}
+
+.team-section h2 {
+  margin-bottom: 1rem;
+  background: var(--color-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: var(--font-weight-bold);
+  font-size: 2rem;
+}
+
+.team-card {
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: var(--color-shadow);
+  border: 1px solid var(--color-glassMorphism);
+  transition: all var(--animation-duration);
+}
+
+.team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--color-primary);
+}

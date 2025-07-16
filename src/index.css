@@ -1,0 +1,19 @@
+/* Import our innovative theme system */
+@import "./styles/theme-global.css";
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all var(--animation-duration) var(--animation-timing);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  background: var(--color-surface);
+  padding: 0.2em 0.4em;
+  border-radius: var(--border-radius-sm);
+  color: var(--color-text);
+}

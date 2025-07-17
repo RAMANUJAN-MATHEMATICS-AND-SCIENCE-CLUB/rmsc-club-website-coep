@@ -1,0 +1,30 @@
+/* bootstrap-integration.css */
+
+/* Example: Override Bootstrap primary color */
+:root {
+  --bs-primary: #4a90e2;
+}
+
+/* Example: Customize Bootstrap button */
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #357ab8;
+  border-color: #357ab8;
+}
+
+/* Example: Add custom spacing utility */
+.mt-6 {
+  margin-top: 3rem !important;
+}
+
+/* Example: Custom card shadow */
+.card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

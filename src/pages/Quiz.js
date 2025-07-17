@@ -1,16 +1,230 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./Quiz.css";
 
 const quizDataByLevel = {
-  // ... (same as before)
   easy: [
-    // ... (same as before)
+    {
+      question: "What is the value of π (pi) to 2 decimal places?",
+      options: ["3.14", "3.16", "3.12", "3.18"],
+      correct: 0,
+      explanation:
+        "π (pi) is approximately 3.14159..., so to 2 decimal places it's 3.14",
+      difficulty: "Easy",
+    },
+    {
+      question: "What is the derivative of x²?",
+      options: ["x", "2x", "x²", "2x²"],
+      correct: 1,
+      explanation: "Using the power rule: d/dx(x²) = 2x¹ = 2x",
+      difficulty: "Easy",
+    },
+    {
+      question: "Which programming language was developed by Guido van Rossum?",
+      options: ["Java", "C++", "Python", "JavaScript"],
+      correct: 2,
+      explanation:
+        "Python was created by Guido van Rossum and first released in 1991.",
+      difficulty: "Easy",
+    },
+    {
+      question: "What is 2 + 2 × 3?",
+      options: ["12", "8", "6", "10"],
+      correct: 1,
+      explanation:
+        "Following order of operations (PEMDAS): 2 + (2 × 3) = 2 + 6 = 8",
+      difficulty: "Easy",
+    },
+    {
+      question: "What is the square root of 64?",
+      options: ["6", "7", "8", "9"],
+      correct: 2,
+      explanation: "8 × 8 = 64, so √64 = 8",
+      difficulty: "Easy",
+    },
+    {
+      question:
+        "In a right triangle, what is the relationship between the sides?",
+      options: ["a² + b² = c²", "a + b = c", "a² - b² = c²", "a × b = c"],
+      correct: 0,
+      explanation:
+        "The Pythagorean theorem states that a² + b² = c² where c is the hypotenuse",
+      difficulty: "Easy",
+    },
+    {
+      question: "What is the result of 5!?",
+      options: ["25", "120", "20", "15"],
+      correct: 1,
+      explanation: "5! = 5 × 4 × 3 × 2 × 1 = 120",
+      difficulty: "Easy",
+    },
+    {
+      question: "What is the binary representation of decimal 5?",
+      options: ["101", "110", "100", "111"],
+      correct: 0,
+      explanation: "5 in binary is 101 (1×2² + 0×2¹ + 1×2⁰ = 4 + 0 + 1 = 5)",
+      difficulty: "Easy",
+    },
   ],
   medium: [
-    // ... (same as before)
+    {
+      question: "Who is known as the 'Man Who Knew Infinity'?",
+      options: [
+        "Albert Einstein",
+        "Isaac Newton",
+        "Srinivasa Ramanujan",
+        "Leonhard Euler",
+      ],
+      correct: 2,
+      explanation:
+        "Srinivasa Ramanujan was called 'The Man Who Knew Infinity' due to his extraordinary mathematical intuition.",
+      difficulty: "Medium",
+    },
+    {
+      question: "What is the binary representation of the decimal number 8?",
+      options: ["1000", "1001", "1010", "1100"],
+      correct: 0,
+      explanation: "8 in binary is 1000 (1×2³ + 0×2² + 0×2¹ + 0×2⁰ = 8)",
+      difficulty: "Medium",
+    },
+    {
+      question: "What is the time complexity of binary search?",
+      options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+      correct: 1,
+      explanation:
+        "Binary search has O(log n) time complexity as it divides the search space in half with each iteration.",
+      difficulty: "Medium",
+    },
+    {
+      question: "What is the integral of 2x?",
+      options: ["x²", "x² + C", "2x²", "x² + 2C"],
+      correct: 1,
+      explanation: "∫2x dx = x² + C, where C is the constant of integration",
+      difficulty: "Medium",
+    },
+    {
+      question: "In programming, what does 'recursion' mean?",
+      options: [
+        "A loop that never ends",
+        "A function calling itself",
+        "A type of variable",
+        "A sorting algorithm",
+      ],
+      correct: 1,
+      explanation:
+        "Recursion is when a function calls itself to solve a smaller instance of the same problem.",
+      difficulty: "Medium",
+    },
+    {
+      question: "What is the derivative of sin(x)?",
+      options: ["cos(x)", "-cos(x)", "sin(x)", "-sin(x)"],
+      correct: 0,
+      explanation: "The derivative of sin(x) is cos(x)",
+      difficulty: "Medium",
+    },
+    {
+      question: "Which data structure follows LIFO principle?",
+      options: ["Queue", "Stack", "Array", "Linked List"],
+      correct: 1,
+      explanation: "Stack follows Last In, First Out (LIFO) principle",
+      difficulty: "Medium",
+    },
+    {
+      question: "What is the sum of interior angles in a hexagon?",
+      options: ["540°", "720°", "900°", "1080°"],
+      correct: 1,
+      explanation:
+        "Sum of interior angles = (n-2) × 180°. For hexagon: (6-2) × 180° = 720°",
+      difficulty: "Medium",
+    },
   ],
   hard: [
-    // ... (same as before)
+    {
+      question:
+        "In quantum mechanics, what does the Schrödinger equation describe?",
+      options: [
+        "The position of particles",
+        "The wave function of quantum systems",
+        "The speed of light",
+        "Gravitational forces",
+      ],
+      correct: 1,
+      explanation:
+        "The Schrödinger equation is the fundamental equation that describes how the quantum state of a physical system changes over time.",
+      difficulty: "Hard",
+    },
+    {
+      question:
+        "Which mathematician proved that there are infinitely many prime numbers?",
+      options: ["Pythagoras", "Euclid", "Archimedes", "Fibonacci"],
+      correct: 1,
+      explanation:
+        "Euclid proved the infinitude of primes around 300 BCE using a elegant proof by contradiction.",
+      difficulty: "Hard",
+    },
+    {
+      question: "What is the limit of (sin x)/x as x approaches 0?",
+      options: ["0", "1", "∞", "Does not exist"],
+      correct: 1,
+      explanation:
+        "This is a fundamental limit in calculus: lim(x→0) (sin x)/x = 1",
+      difficulty: "Hard",
+    },
+    {
+      question:
+        "What is the time complexity of the worst-case scenario for quicksort?",
+      options: ["O(n log n)", "O(n²)", "O(n)", "O(log n)"],
+      correct: 1,
+      explanation:
+        "In the worst case (already sorted array with poor pivot), quicksort has O(n²) complexity",
+      difficulty: "Hard",
+    },
+    {
+      question: "What is Euler's identity?",
+      options: ["e^(iπ) + 1 = 0", "e^π = i", "π = e", "e + π = 1"],
+      correct: 0,
+      explanation:
+        "Euler's identity: e^(iπ) + 1 = 0, considered one of the most beautiful equations in mathematics",
+      difficulty: "Hard",
+    },
+    {
+      question: "In machine learning, what does 'overfitting' mean?",
+      options: [
+        "Model is too simple",
+        "Model performs well on training but poorly on test data",
+        "Model has too few parameters",
+        "Model trains too slowly",
+      ],
+      correct: 1,
+      explanation:
+        "Overfitting occurs when a model learns the training data too well, including noise, leading to poor generalization",
+      difficulty: "Hard",
+    },
+    {
+      question: "What is the Riemann Hypothesis about?",
+      options: [
+        "Prime number distribution",
+        "Geometry of space",
+        "Quantum mechanics",
+        "Calculus fundamentals",
+      ],
+      correct: 0,
+      explanation:
+        "The Riemann Hypothesis concerns the distribution of prime numbers and the zeros of the Riemann zeta function",
+      difficulty: "Hard",
+    },
+    {
+      question: "In graph theory, what is a Hamiltonian path?",
+      options: [
+        "A path that visits every edge once",
+        "A path that visits every vertex once",
+        "The shortest path",
+        "A circular path",
+      ],
+      correct: 1,
+      explanation:
+        "A Hamiltonian path visits every vertex in a graph exactly once",
+      difficulty: "Hard",
+    },
   ],
 };
 
@@ -141,118 +355,69 @@ function Quiz() {
   const getDifficultyColor = (level) => {
     switch (level) {
       case "easy":
-        return "#d4edda";
+        return "#48bb78";
       case "medium":
-        return "#fff3cd";
+        return "#ed8936";
       case "hard":
-        return "#f8d7da";
+        return "#e53e3e";
       default:
-        return "#e2e3e5";
+        return "#667eea";
     }
   };
 
   if (!quizStarted) {
     return (
-      <div className="container py-5">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6">
-            <div className="card shadow">
-              <div className="card-body">
-                <h1 className="card-title text-center mb-4">
-                  🧠 RMSC Knowledge Challenge
-                </h1>
-                <p className="text-center">
-                  Test your knowledge in Mathematics, Science, and Computer
-                  Science!
-                </p>
-                <h3 className="text-center mt-4">
-                  Choose Your Challenge Level:
-                </h3>
-                <div className="row my-4">
-                  <div className="col-4">
-                    <div
-                      className="card text-center border-success mb-3"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => startQuiz("easy")}
-                    >
-                      <div className="card-body">
-                        <div style={{ fontSize: "2rem" }}>🌱</div>
-                        <h5 className="card-title">Easy</h5>
-                        <p className="card-text">Perfect for beginners</p>
-                        <div>
-                          <span className="badge bg-success me-1">
-                            8 Questions
-                          </span>
-                          <span className="badge bg-light text-success border border-success">
-                            Basic
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-4">
-                    <div
-                      className="card text-center border-warning mb-3"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => startQuiz("medium")}
-                    >
-                      <div className="card-body">
-                        <div style={{ fontSize: "2rem" }}>🔥</div>
-                        <h5 className="card-title">Medium</h5>
-                        <p className="card-text">For intermediate learners</p>
-                        <div>
-                          <span className="badge bg-warning text-dark me-1">
-                            8 Questions
-                          </span>
-                          <span className="badge bg-light text-warning border border-warning">
-                            Applied
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-4">
-                    <div
-                      className="card text-center border-danger mb-3"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => startQuiz("hard")}
-                    >
-                      <div className="card-body">
-                        <div style={{ fontSize: "2rem" }}>💎</div>
-                        <h5 className="card-title">Hard</h5>
-                        <p className="card-text">Expert level challenges</p>
-                        <div>
-                          <span className="badge bg-danger me-1">
-                            8 Questions
-                          </span>
-                          <span className="badge bg-light text-danger border border-danger">
-                            Advanced
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+      <div className="quiz-page">
+        <div className="quiz-container">
+          <h1>🧠 RMSC Knowledge Challenge</h1>
+          <div className="quiz-intro">
+            <p>
+              Test your knowledge in Mathematics, Science, and Computer Science!
+            </p>
+            <div className="level-selection">
+              <h3>Choose Your Challenge Level:</h3>
+              <div className="level-options">
+                <div className="level-card" onClick={() => startQuiz("easy")}>
+                  <div className="level-icon">🌱</div>
+                  <h4>Easy</h4>
+                  <p>Perfect for beginners</p>
+                  <div className="level-details">
+                    <span>8 Questions</span>
+                    <span>Basic concepts</span>
                   </div>
                 </div>
-                <div className="row text-center mt-4">
-                  <div className="col">
-                    <div className="mb-2">
-                      <strong>⏱️ Time Limit</strong>
-                      <p className="mb-0">45 seconds per question</p>
-                    </div>
-                  </div>
-                  <div className="col">
-                    <div className="mb-2">
-                      <strong>📊 Scoring</strong>
-                      <p className="mb-0">1 point per correct answer</p>
-                    </div>
-                  </div>
-                  <div className="col">
-                    <div className="mb-2">
-                      <strong>💡 Explanations</strong>
-                      <p className="mb-0">Learn from detailed explanations</p>
-                    </div>
+                <div className="level-card" onClick={() => startQuiz("medium")}>
+                  <div className="level-icon">🔥</div>
+                  <h4>Medium</h4>
+                  <p>For intermediate learners</p>
+                  <div className="level-details">
+                    <span>8 Questions</span>
+                    <span>Applied knowledge</span>
                   </div>
                 </div>
+                <div className="level-card" onClick={() => startQuiz("hard")}>
+                  <div className="level-icon">💎</div>
+                  <h4>Hard</h4>
+                  <p>Expert level challenges</p>
+                  <div className="level-details">
+                    <span>8 Questions</span>
+                    <span>Advanced concepts</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="quiz-info">
+              <div className="info-item">
+                <strong>⏱️ Time Limit</strong>
+                <p>45 seconds per question</p>
+              </div>
+              <div className="info-item">
+                <strong>📊 Scoring</strong>
+                <p>1 point per correct answer</p>
+              </div>
+              <div className="info-item">
+                <strong>💡 Explanations</strong>
+                <p>Learn from detailed explanations</p>
               </div>
             </div>
           </div>
@@ -263,78 +428,64 @@ function Quiz() {
 
   if (showResult) {
     return (
-      <div className="container py-5">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6">
-            <div className="card shadow">
-              <div className="card-body text-center">
-                <h2 className="mb-4">🏆 Quiz Complete!</h2>
-                <div className="mb-3">
-                  <div
-                    className="rounded-circle border border-3 border-primary d-inline-flex align-items-center justify-content-center"
-                    style={{ width: 100, height: 100, fontSize: "2rem" }}
-                  >
-                    <span>
-                      {score}/{quizData.length}
-                    </span>
-                  </div>
-                  <div className="mt-2">
-                    You scored {((score / quizData.length) * 100).toFixed(1)}%
-                  </div>
-                  <div
-                    className={`fw-bold mt-2 ${
-                      (score / quizData.length) * 100 >= 70
-                        ? "text-success"
-                        : "text-danger"
-                    }`}
-                  >
-                    {getScoreMessage()}
-                  </div>
-                  <div className="text-muted mt-1">
-                    Level:{" "}
-                    {selectedLevel.charAt(0).toUpperCase() +
-                      selectedLevel.slice(1)}
-                  </div>
-                </div>
-                <h4 className="mt-4 mb-3">📈 Your Performance</h4>
-                <div className="row mb-4">
-                  <div className="col-6 col-md-3">
-                    <div className="border rounded p-2">
-                      <div className="fw-bold">{score}</div>
-                      <div className="small text-muted">Correct</div>
-                    </div>
-                  </div>
-                  <div className="col-6 col-md-3">
-                    <div className="border rounded p-2">
-                      <div className="fw-bold">{quizData.length - score}</div>
-                      <div className="small text-muted">Incorrect</div>
-                    </div>
-                  </div>
-                  <div className="col-6 col-md-3 mt-2 mt-md-0">
-                    <div className="border rounded p-2">
-                      <div className="fw-bold">{quizStats.averageTime}s</div>
-                      <div className="small text-muted">Avg Time</div>
-                    </div>
-                  </div>
-                  <div className="col-6 col-md-3 mt-2 mt-md-0">
-                    <div className="border rounded p-2">
-                      <div className="fw-bold">{quizStats.maxStreak}</div>
-                      <div className="small text-muted">Best Streak</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex justify-content-center gap-2">
-                  <button className="btn btn-secondary" onClick={resetQuiz}>
-                    🏠 Back to Levels
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => startQuiz(selectedLevel)}
-                  >
-                    🔄 Try Again
-                  </button>
+      <div className="quiz-page">
+        <div className="quiz-container">
+          <div className="quiz-result">
+            <h2>🏆 Quiz Complete!</h2>
+            <div className="score-display">
+              <div className="score-circle">
+                <div className="score-text">
+                  {score}/{quizData.length}
                 </div>
               </div>
+              <div className="score-details">
+                You scored {((score / quizData.length) * 100).toFixed(1)}%
+              </div>
+              <div
+                className={`result-status ${
+                  (score / quizData.length) * 100 >= 70 ? "passed" : "failed"
+                }`}
+              >
+                {getScoreMessage()}
+              </div>
+              <div className="performance-message">
+                Level:{" "}
+                {selectedLevel.charAt(0).toUpperCase() + selectedLevel.slice(1)}
+              </div>
+            </div>
+
+            <div className="quiz-statistics">
+              <h3>📈 Your Performance</h3>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <span className="stat-number">{score}</span>
+                  <span className="stat-label">Correct</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">{quizData.length - score}</span>
+                  <span className="stat-label">Incorrect</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">{quizStats.averageTime}s</span>
+                  <span className="stat-label">Avg Time</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">{quizStats.maxStreak}</span>
+                  <span className="stat-label">Best Streak</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="result-actions">
+              <button className="quiz-button" onClick={resetQuiz}>
+                🏠 Back to Levels
+              </button>
+              <button
+                className="quiz-button"
+                onClick={() => startQuiz(selectedLevel)}
+              >
+                🔄 Try Again
+              </button>
             </div>
           </div>
         </div>
@@ -343,116 +494,92 @@ function Quiz() {
   }
 
   return (
-    <div className="container py-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8 col-lg-6">
-          <div className="card shadow">
-            <div className="card-body">
-              <div className="mb-3">
-                <div className="progress" style={{ height: "8px" }}>
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    style={{
-                      width: `${
-                        ((currentQuestion + 1) / quizData.length) * 100
-                      }%`,
-                    }}
-                    aria-valuenow={currentQuestion + 1}
-                    aria-valuemin={0}
-                    aria-valuemax={quizData.length}
-                  ></div>
-                </div>
-                <div className="d-flex justify-content-between align-items-center mt-2">
-                  <div>
-                    <span className="badge bg-primary">
-                      Question {currentQuestion + 1} of {quizData.length}
-                    </span>
-                  </div>
-                  <div>
-                    <span
-                      className="badge"
-                      style={{
-                        background: getDifficultyColor(selectedLevel),
-                        color: "#333",
-                      }}
-                    >
-                      {selectedLevel.charAt(0).toUpperCase() +
-                        selectedLevel.slice(1)}{" "}
-                      Level
-                    </span>
-                  </div>
-                  <div>
-                    <span
-                      className={`badge ${
-                        timeLeft <= 10 ? "bg-danger" : "bg-secondary"
-                      }`}
-                    >
-                      ⏱️ {timeLeft}s
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="mb-4">
-                <h5>{quizData[currentQuestion]?.question}</h5>
-                <div className="list-group mt-3">
-                  {quizData[currentQuestion]?.options.map((option, index) => (
-                    <button
-                      key={index}
-                      className={
-                        "list-group-item list-group-item-action d-flex align-items-center " +
-                        (selectedAnswer === index ? "active " : "") +
-                        (showExplanation &&
-                        index === quizData[currentQuestion].correct
-                          ? "list-group-item-success "
-                          : "") +
-                        (showExplanation &&
-                        selectedAnswer === index &&
-                        index !== quizData[currentQuestion].correct
-                          ? "list-group-item-danger "
-                          : "")
-                      }
-                      disabled={showExplanation}
-                      onClick={() => handleAnswerClick(index)}
-                    >
-                      <span className="me-2 fw-bold">
-                        {String.fromCharCode(65 + index)}
-                      </span>
-                      <span className="flex-grow-1">{option}</span>
-                      {showExplanation &&
-                        index === quizData[currentQuestion].correct && (
-                          <span className="ms-2 text-success fw-bold">✓</span>
-                        )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              {showExplanation && (
-                <div className="alert alert-info">
-                  <h6 className="mb-1">💡 Explanation</h6>
-                  <p className="mb-0">
-                    {quizData[currentQuestion]?.explanation}
-                  </p>
-                </div>
-              )}
-              <div className="d-flex justify-content-end gap-2">
-                {!showExplanation && selectedAnswer !== null && (
-                  <button
-                    className="btn btn-outline-info"
-                    onClick={toggleExplanation}
-                  >
-                    💡 Show Explanation
-                  </button>
-                )}
-                {(showExplanation || selectedAnswer !== null) && (
-                  <button className="btn btn-primary" onClick={handleNext}>
-                    {currentQuestion + 1 === quizData.length
-                      ? "🏁 Finish Quiz"
-                      : "➡️ Next Question"}
-                  </button>
-                )}
-              </div>
+    <div className="quiz-page">
+      <div className="quiz-container">
+        <div className="quiz-header">
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{
+                width: `${((currentQuestion + 1) / quizData.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+          <div className="quiz-info-bar">
+            <div className="question-counter">
+              Question {currentQuestion + 1} of {quizData.length}
             </div>
+            <div
+              className="difficulty-badge"
+              style={{ background: getDifficultyColor(selectedLevel) }}
+            >
+              {selectedLevel.charAt(0).toUpperCase() + selectedLevel.slice(1)}{" "}
+              Level
+            </div>
+            <div className={`timer ${timeLeft <= 10 ? "warning" : ""}`}>
+              ⏱️ {timeLeft}s
+            </div>
+          </div>
+        </div>
+
+        <div className="question-section">
+          <div className="question">{quizData[currentQuestion]?.question}</div>
+          <div className="options">
+            {quizData[currentQuestion]?.options.map((option, index) => (
+              <div
+                key={index}
+                className={`option ${
+                  selectedAnswer === index ? "selected" : ""
+                } ${
+                  showExplanation && index === quizData[currentQuestion].correct
+                    ? "correct"
+                    : ""
+                } ${
+                  showExplanation &&
+                  selectedAnswer === index &&
+                  index !== quizData[currentQuestion].correct
+                    ? "incorrect"
+                    : ""
+                }`}
+                onClick={() => handleAnswerClick(index)}
+              >
+                <div className="option-letter">
+                  {String.fromCharCode(65 + index)}
+                </div>
+                <div className="option-text">{option}</div>
+                {showExplanation &&
+                  index === quizData[currentQuestion].correct && (
+                    <div className="correct-indicator">✓</div>
+                  )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {showExplanation && (
+          <div className="explanation-section">
+            <h4>💡 Explanation</h4>
+            <p>{quizData[currentQuestion]?.explanation}</p>
+          </div>
+        )}
+
+        <div className="quiz-actions">
+          <div className="action-buttons">
+            {!showExplanation && selectedAnswer !== null && (
+              <button
+                className="quiz-button explanation-btn"
+                onClick={toggleExplanation}
+              >
+                💡 Show Explanation
+              </button>
+            )}
+            {(showExplanation || selectedAnswer !== null) && (
+              <button className="quiz-button next-button" onClick={handleNext}>
+                {currentQuestion + 1 === quizData.length
+                  ? "🏁 Finish Quiz"
+                  : "➡️ Next Question"}
+              </button>
+            )}
           </div>
         </div>
       </div>
